@@ -1804,6 +1804,7 @@ class DebugSession( object ):
       self._outputView.OnOutput( message[ 'body' ] )
 
   def OnEvent_stopped( self, message ):
+    vim.command("if g:focused == 0 | !osascript -e 'display notification \"Breakpoint\" with title \"Breakpoint\"' | endif")
     event = message[ 'body' ]
     reason = event.get( 'reason' ) or '<protocol error>'
     description = event.get( 'description' )
