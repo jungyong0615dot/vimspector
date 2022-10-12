@@ -1751,6 +1751,7 @@ class DebugSession( object ):
 
 
   def OnEvent_exited( self, message ):
+    vim.command("if g:focused == 0 | !osascript -e 'display notification \"Debuggee_Exit\" with title \"Debuggee_Exit\"' | endif")
     utils.UserMessage( 'The debuggee exited with status code: {}'.format(
       message[ 'body' ][ 'exitCode' ] ) )
     self._stackTraceView.OnExited( message )
@@ -1775,6 +1776,7 @@ class DebugSession( object ):
     self._variablesView.Clear()
 
   def OnServerExit( self, status ):
+    vim.command("if g:focused == 0 | !osascript -e 'display notification \"ServerExit\" with title \"ServerExit\"' | endif")
     self._logger.info( "The server has terminated with status %s",
                        status )
     self.Clear()
